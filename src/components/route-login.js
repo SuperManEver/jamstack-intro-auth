@@ -2,7 +2,7 @@ import React from 'react'
 import { useIdentityContext } from 'react-netlify-identity'
 import { navigate } from 'gatsby'
 
-export default function RouteLogin() {
+export default function RouteLogin({ onOpen }) {
     const identity = useIdentityContext()
 
     if (identity && identity.isLoggedIn) {
@@ -14,7 +14,7 @@ export default function RouteLogin() {
     return (
         <>
             <h1>Log In or Sign Up</h1>
-            <button onClick={handleLogin}>Log In</button>
+            <button onClick={onOpen}>Log In</button>
         </>
     )
 }

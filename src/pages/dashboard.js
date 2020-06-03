@@ -13,25 +13,28 @@ import RouteLogin from '../components/route-login'
 import 'react-netlify-identity-widget/styles.css'
 
 const Dashboard = ({ location }) => {
-    const [isShown, setShow] = useState(false)
+  const [isShown, setShow] = useState(false)
 
-    useEffect(() => {
-        if (location.pathname.match(/^\/dashboard\/?$/)) {
-            navigate('/dashboard/login', { replace: true })
-        }
-    }, [])
+  useEffect(() => {
+    if (location.pathname.match(/^\/dashboard\/?$/)) {
+      navigate('/dashboard/login', { replace: true })
+    }
+  }, [])
 
-    return (
-        <Layout>
-            <Profile />
-            <Router>
-                <RouteBase path="/dashboard/base" />
-                <RouteSecret path="/dashboard/secret" />
-                <RouteLogin path="/dashboard/login" />
-            </Router>
-            <IdentityModal showDialog={true} />
-        </Layout>
-    )
+  return (
+    <Layout>
+      <Profile showModal={() => setShow(true)} />
+      <Router>
+        <RouteBase path="/dashboard/base" />
+        <RouteSecret path="/dashboard/secret" />
+        <RouteLogin path="/dashboard/login" onOpen={() => setShow(true)} />
+      </Router>
+      <IdentityModal
+        showDialog={isShown}
+        onCloseDialog={() => setShow(false)}
+      />
+    </Layout>
+  )
 }
 
 export default Dashboard
